@@ -1,0 +1,29 @@
+<div data-sly-use.banner="com.aem.aemprojet.core.models.BannerList"></div>
+   <div data-sly-test="${banner.position=='left'}">
+          <div class="row">
+            <div class="col-xs-6">
+                 <div class="image-pos"><img src="${banner.bannerimage}" class="img-rounded"/></div>
+            </div>
+            <div class="col-xs-6">
+                <div class="text-pos"><p><font size="${banner.fontsize}">${banner.heading}</font></p>
+                    <p>${banner.description}</p>
+                    <input type="button" class="btn btn-info" value="${banner.buttontext}" onclick="location.href = '${banner.hreflink @ context='html'}';">
+                </div>
+            </div>
+        </div>
+   </div>
+ 
+ 
+    <div data-sly-test="${banner.position=='right'}">
+          <div class="row">
+            <div class="col-xs-6">
+                <div class="text-pos"><p><font size="${banner.fontsize}">${banner.heading}</font></p>
+                    <p>${banner.description}</p>
+                    <input type="button" class="btn btn-info" value="${banner.buttontext}" onclick="location.href = '${banner.hreflink @ context='html'}';">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                    <div class="image-pos"><img src="${banner.bannerimage}" class="img-rounded"/></div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,20 @@
+<div data-sly-use.banner="com.aem.aemprojet.core.models.BannerList"></div>
+<sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.css @ categories='bannerComponent'}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+ 
+<div class="container-fluid">
+    <div data-sly-test="${banner.bgstyle=='color'}">
+        <div class="jumbotron" style="background-color:${banner.backcolor @ context='styleToken'};">
+                 <sly data-sly-include="text-image.html" />
+        </div>
+    </div>
+  
+    <div data-sly-test="${banner.bgstyle=='image'}">
+        <div class="jumbotron" style="background-image:url('${banner.backimage @ context='styleString'}');">
+                 <sly data-sly-include="text-image.html" />
+        </div>
+    </div>
+</div>

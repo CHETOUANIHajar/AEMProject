@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.rmi.ServerException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -42,9 +43,14 @@ public class DownloadAssets extends org.apache.sling.api.servlets.SlingAllMethod
     //Set up References
     /** Default log. */
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
+
+
                
     private Session session;
-                   
+    
+    
+
+              
     //Inject a Sling ResourceResolverFactory
     @Reference
     private ResourceResolverFactory resolverFactory;
@@ -58,6 +64,7 @@ public class DownloadAssets extends org.apache.sling.api.servlets.SlingAllMethod
     //in the HTTP output stream
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServerException, IOException {
      try
+     
      {
         //Invoke the adaptTo method to create a Session 
         ResourceResolver resourceResolver = request.getResourceResolver();   
@@ -66,10 +73,16 @@ public class DownloadAssets extends org.apache.sling.api.servlets.SlingAllMethod
           
         // create query description as hash map (simplest way, same as form post)
         Map<String, String> map = new HashMap<String, String>();
-      
-        //set QueryBuilder search criteria                   
-        map.put("type", "dam:Asset");
-        map.put("path", "/content/dam"); 
+     
+        //parameters used in URL.
+        //example: http://localhost:4502/bin/myDownloadServlet?type=dam:Asset&path=/content/dam/
+    String type = request.getParameter("type");
+    String path = request.getParameter("path");
+     
+
+     //set QueryBuilder search 
+        map.put("type", type);
+        map.put("path", path); 
         //map.put("property.value", "image/png");
         
         builder= resourceResolver.adaptTo(QueryBuilder.class);
@@ -89,7 +102,7 @@ public class DownloadAssets extends org.apache.sling.api.servlets.SlingAllMethod
         for (Hit hit : sr.getHits()) {
              
             //Convert the HIT to an asset - each asset will be placed into a ZIP for downloading
-            String path = hit.getPath();
+           path = hit.getPath();
             Resource rs = resourceResolver.getResource(path);
             Asset asset = rs.adaptTo(Asset.class);   
                
